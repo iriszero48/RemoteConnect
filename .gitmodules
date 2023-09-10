@@ -1,0 +1,3 @@
+[submodule "CppUtility"]
+	path = CppUtility
+	url = https://github.com/iriszero48/CppUtility.git
