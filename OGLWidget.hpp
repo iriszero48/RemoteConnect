@@ -18,6 +18,7 @@
 #include <Image/File.hpp>
 #include <Convert/Convert.hpp>
 #include <Bit/Bit.hpp>
+#include "Assert/Assert.hpp"
 
 #include "RcUtility.hpp"
 
@@ -237,7 +238,7 @@ public:
     template <typename T>
     static void WriteString(QTcpSocket &sock, const std::string_view &str)
     {
-        CuUtil_Assert(str.length() <= std::numeric_limits<T>::max(), Exception);
+        CuAssert(str.length() <= std::numeric_limits<T>::max());
 
         const auto len = static_cast<T>(str.length());
         WriteInt(sock, len);

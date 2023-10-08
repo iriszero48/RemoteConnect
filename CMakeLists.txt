@@ -13,11 +13,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
 option(BUILD_GUI "build server only" OFF)
-option(CU_ROOT "CppUtility Root Path" "CppUtility")
+set(CU_ROOT "CppUtility")
 cmake_print_variables(CU_ROOT)
 file(GLOB_RECURSE CU_FILES "${CU_ROOT}/*.hpp")
 
 find_package(nlohmann_json CONFIG REQUIRED)
+find_package(FFMPEG REQUIRED)
+find_package(asio CONFIG REQUIRED)
 
 if (${BUILD_GUI})
     find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS 
@@ -98,13 +100,10 @@ if (${BUILD_GUI})
     endif()
 endif ()
 
-find_package(FFMPEG REQUIRED)
-find_package(asio CONFIG REQUIRED)
-
 set(RCS_LIBS
     ${FFMPEG_LIBRARIES} 
     asio::asio
-        nlohmann_json::nlohmann_json
+    nlohmann_json::nlohmann_json
 )
 
 if (UNIX)

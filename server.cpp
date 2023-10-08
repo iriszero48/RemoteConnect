@@ -24,6 +24,7 @@
 #include "Time/Time.hpp"
 #include "Utility/Utility.hpp"
 #include "Video/Video.hpp"
+#include "Assert/Assert.hpp"
 
 #if WIN32
 #include <windows.h>
@@ -115,7 +116,7 @@ namespace RcUtil
     template <typename T, typename AsyncWriteStream>
     asio::awaitable<void> WriteString(AsyncWriteStream &sock, const std::string_view &str)
     {
-        CuUtil_Assert(str.length() <= std::numeric_limits<T>::max(), Exception);
+        CuAssert(str.length() <= std::numeric_limits<T>::max());
 
         const auto len = static_cast<T>(str.length());
         co_await WriteInt(sock, len);

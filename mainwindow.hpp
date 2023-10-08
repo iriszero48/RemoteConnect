@@ -18,6 +18,8 @@
 #include "OGLWidget.hpp"
 #include "RcUtility.hpp"
 
+#include "Assert/Assert.hpp"
+
 class MainWindow final : public QMainWindow
 {
     Q_OBJECT
@@ -87,7 +89,7 @@ public:
                 lenStr[0] = static_cast<uint8_t>(retPw.length());
                 const auto auth = CuStr::Appends(CuEnum::ToString(ServerOperator::Auth), reinterpret_cast<const char*>(lenStr.data()), retPw.toStdString());
                 qint64 pass = srvSock->write(auth.data(), auth.length());
-                CuUtil_Assert(pass == auth.length(), Exception);
+                CuAssert(pass == auth.length());
                 if (!srvSock->waitForBytesWritten())
                 {
                     QMessageBox::warning(this, "Error", "write Auth failed");
@@ -103,7 +105,7 @@ public:
                     return;
                 }
                 pass = srvSock->read(reinterpret_cast<char*>(vidUrlLenBuf.data()), vidUrlLenBuf.size());
-                CuUtil_Assert(pass == vidUrlLenBuf.size(), Exception);
+                CuAssert(pass == vidUrlLenBuf.size());
                 if constexpr (std::endian::native == std::endian::big)
                 {
                     *vidUrlLen = CuBit::ByteSwap(*vidUrlLen);
@@ -115,7 +117,7 @@ public:
                     return;
                 }
                 pass = srvSock->read(vidUrl.data(), vidUrl.length());
-                CuUtil_Assert(pass == vidUrl.length(), Exception);
+                CuAssert(pass == vidUrl.length());
 
                 const auto res = nlohmann::json::parse(vidUrl);
                 if (!res["status"].get<bool>())
