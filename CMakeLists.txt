@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 
-option(BUILD_GUI "build server only" OFF)
+option(BUILD_GUI "build gui" ON)
 set(CU_ROOT "CppUtility")
 cmake_print_variables(CU_ROOT)
 file(GLOB_RECURSE CU_FILES "${CU_ROOT}/*.hpp")

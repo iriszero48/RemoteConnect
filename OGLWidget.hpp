@@ -250,7 +250,7 @@ public:
 protected:
     void initializeGL() override
     {
-        initializeOpenGLFunctions();
+        CuAssert(initializeOpenGLFunctions());
 
         program = new QOpenGLShaderProgram(this);
         program->addShaderFromSourceCode(QOpenGLShader::Vertex, R"(
